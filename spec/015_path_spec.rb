@@ -1,26 +1,44 @@
-require_relative "../lib/path.rb" # Code your solution here.
+require_relative '../lib/path.rb'
 
-# Code some tests for path.rb.
+describe Path do
+  describe '#initialize' do
+    it 'assigns path to an instance variable' do
+      instance = Path.new('/abso/lute')
+      expect(instance.path).to eq('/abso/lute')
+    end
+  end
 
-# There are three methods on the Path class.
+  describe '#normalize_path' do
+    it 'takes a relative path as an argument and returns an absolute path' do
+      instance = Path.new('rela/tive')
+      abs_path = "#{Dir.pwd}/rela/tive"
+      expect(instance.normalize_path).to eq(abs_path)
+    end
+  end
 
-# The normalize_path method will return an absolute
-# path to the file no matter what kind of path sent
-# to it.
+  describe '#relative_path?' do
+    it "returns true if the object's path is relative" do
+      instance = Path.new('rela/tive')
+      expect(instance.relative_path?).to be true
+    end
 
-# The absolute_path? method will return true if the
-# path passed to it is absolute.
+    it "returns false if the object's path is absolute" do
+      instance = Path.new('/abso/lute')
+      expect(instance.relative_path?).to be false
+    end
+  end
 
-# The relative_path? method will return true if the 
-# path passed to it is relative.
+  describe '#absolute_path?' do
+    it "returns true if the object's path is absolute" do
+      instance = Path.new('/abso/lute')
+      expect(instance.absolute_path?).to be true
+    end
 
-# Write some tests that spec it out.
+    it "returns false if the object's path is relative" do
+      instance = Path.new('rela/tive')
+      expect(instance.absolute_path?).to be false
+    end
+  end
 
-# Use the other tests in this suite as guides.
 
-# You should should write at least three describe blocks, 
-# one for each method.
-
-# Test the negative and positive results, for example,
-# when describing absolute_path? make sure to test
-# the results when sent a relative and absolute path.
+end
